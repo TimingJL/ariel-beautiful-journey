@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/ariel-beautiful-journey/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/ariel-beautiful-journey/static/js/main.b3efb2b3.chunk.js",
+    "main.js.map": "/ariel-beautiful-journey/static/js/main.b3efb2b3.chunk.js.map",
+    "runtime-main.js": "/ariel-beautiful-journey/static/js/runtime-main.99c4a4ca.js",
+    "runtime-main.js.map": "/ariel-beautiful-journey/static/js/runtime-main.99c4a4ca.js.map",
+    "static/js/2.0194c9c4.chunk.js": "/ariel-beautiful-journey/static/js/2.0194c9c4.chunk.js",
+    "static/js/2.0194c9c4.chunk.js.map": "/ariel-beautiful-journey/static/js/2.0194c9c4.chunk.js.map",
+    "static/js/3.da736ec4.chunk.js": "/ariel-beautiful-journey/static/js/3.da736ec4.chunk.js",
+    "static/js/3.da736ec4.chunk.js.map": "/ariel-beautiful-journey/static/js/3.da736ec4.chunk.js.map",
+    "index.html": "/ariel-beautiful-journey/index.html",
+    "static/css/main.9d5b29c0.chunk.css.map": "/ariel-beautiful-journey/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.0194c9c4.chunk.js.LICENSE.txt": "/ariel-beautiful-journey/static/js/2.0194c9c4.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/ariel-beautiful-journey/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.99c4a4ca.js",
+    "static/js/2.0194c9c4.chunk.js",
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.b3efb2b3.chunk.js"
+  ]
+}
