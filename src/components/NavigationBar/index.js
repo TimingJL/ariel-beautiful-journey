@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toastShow } from 'src/components/toastShow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { getCurrentUser } from 'src/store/selectors/user';
 import LoginDialog from 'src/components/loginDialog';
@@ -43,6 +44,8 @@ const useStyles = makeStyles({
 });
 
 const NavigationBar = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const classes = useStyles();
   const currentUser = useSelector(getCurrentUser);
@@ -70,7 +73,7 @@ const NavigationBar = () => {
           <MakeupOutlineIcon className={classes.makeupIcon} fill="#8b8bff" />
         </div>
         <div className={classes.center}>
-          ~愛玩美の愛麗兒~
+          {matches ? '~愛玩美の愛麗兒~' : ''}
         </div>
         <div className={classes.end}>
           {currentUser ? (

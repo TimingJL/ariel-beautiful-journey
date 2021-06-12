@@ -8,13 +8,13 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = () => {
+const Aromatherapy = () => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      Home
+      Aromatherapy
     </Container>
   );
 };
 
-export default Home;
+export default Aromatherapy;

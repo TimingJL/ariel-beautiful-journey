@@ -37,6 +37,8 @@ const NavigationTabs = ({
               background: '#8b8bff',
             },
           }}
+          variant="scrollable"
+          scrollButtons="on"
         >
           {tabOptions.map((option, index) => {
             const isSelected = index === activeTabIndex;

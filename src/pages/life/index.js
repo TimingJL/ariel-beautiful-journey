@@ -8,13 +8,13 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = () => {
+const Life = () => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      Home
+      Life
     </Container>
   );
 };
 
-export default Home;
+export default Life;

@@ -3,6 +3,7 @@ import {
   useLocation, useHistory,
 } from 'react-router-dom';
 
+import Gallery from 'src/components/gallery';
 import NavigationBar from 'src/components/navigationBar';
 import NavigationTabs from 'src/components/navigationTabs';
 import Routes from './routes';
@@ -19,6 +20,10 @@ const tabOptions = [
   {
     text: '旅行',
     path: '/travel',
+  },
+  {
+    text: '芳療',
+    path: '/aromatherapy',
   },
   {
     text: '生活日誌',
@@ -46,6 +51,7 @@ const Main = () => {
         tabOptions={tabOptions.map((option) => option.text)}
         handleOnTabChange={handleOnTabChange}
       />
+      <Gallery />
       <Routes />
     </>
   );
