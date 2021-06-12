@@ -3,7 +3,6 @@ import {
   useLocation, useHistory,
 } from 'react-router-dom';
 
-// import history from 'src/utils/history';
 import NavigationBar from 'src/components/navigationBar';
 import NavigationTabs from 'src/components/navigationTabs';
 import Routes from './routes';
