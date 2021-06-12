@@ -33,6 +33,7 @@ const useStyles = makeStyles({
     fontSize: 24,
     color: '#8b8bff',
     letterSpacing: 1,
+    whiteSpace: 'nowrap',
   },
   end: {
     display: 'flex',
