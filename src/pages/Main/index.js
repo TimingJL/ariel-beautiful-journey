@@ -30,8 +30,8 @@ const tabOptions = [
 const Main = () => {
   const { pathname } = useLocation();
   const history = useHistory();
-  const foundTab = tabOptions.find((option) => option.path === pathname);
-  const [activeTab, setActiveTab] = useState(foundTab.text);
+  const foundTab = tabOptions.find((option) => option.path.indexOf(pathname) > -1);
+  const [activeTab, setActiveTab] = useState(foundTab ? foundTab.text : tabOptions[0].text);
 
   const handleOnTabChange = (tabIndex) => {
     const selectedTab = tabOptions[tabIndex];
