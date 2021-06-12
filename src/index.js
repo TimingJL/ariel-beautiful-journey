@@ -12,14 +12,12 @@ import store from './store';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-      <ToastContainer />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+    <ToastContainer />
+  </Provider>,
   document.getElementById('root'),
 );
 
