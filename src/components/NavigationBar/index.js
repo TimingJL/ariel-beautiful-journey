@@ -18,7 +18,14 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   start: {},
-  center: {},
+  center: {
+    textAlign: 'center',
+    fontFamily: 'Noto Serif TC',
+    fontWeight: 900,
+    fontSize: 24,
+    color: '#8b8bff',
+    letterSpacing: 1,
+  },
   end: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -50,8 +57,10 @@ const NavigationBar = () => {
   return (
     <>
       <div className={classes.root}>
-        <div className={classes.start}>1</div>
-        <div className={classes.center}>2</div>
+        <div className={classes.start} />
+        <div className={classes.center}>
+          ~愛玩美の愛麗兒~
+        </div>
         <div className={classes.end}>
           {currentUser ? (
             <Button color="primary" onClick={handleClickSignOutButton}>
