@@ -1,43 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import {
+  useLocation, useHistory,
+} from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-
-import { setUser } from 'src/store/actions/user';
+// import history from 'src/utils/history';
 import NavigationBar from 'src/components/navigationBar';
 import NavigationTabs from 'src/components/navigationTabs';
-
-import { auth } from 'src/firebase';
+import Routes from './routes';
 
 const tabOptions = [
-  '首頁',
-  '彩妝',
-  '旅行',
-  '生活日誌',
+  {
+    text: '首頁',
+    path: '/',
+  },
+  {
+    text: '彩妝',
+    path: '/makeup',
+  },
+  {
+    text: '旅行',
+    path: '/travel',
+  },
+  {
+    text: '生活日誌',
+    path: '/life',
+  },
 ];
 
 const Main = () => {
-  const dispatch = useDispatch();
-  const [activeTab, setActiveTab] = useState(tabOptions[0]);
+  const { pathname } = useLocation();
+  const history = useHistory();
+  const foundTab = tabOptions.find((option) => option.path === pathname);
+  const [activeTab, setActiveTab] = useState(foundTab.text);
 
   const handleOnTabChange = (tabIndex) => {
-    setActiveTab(tabOptions[tabIndex]);
+    const selectedTab = tabOptions[tabIndex];
+    setActiveTab(selectedTab.text);
+    history.push(selectedTab.path);
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      dispatch(setUser({ user }));
-    });
-  }, [dispatch]);
-
   return (
-    <div>
+    <>
       <NavigationBar />
       <NavigationTabs
         activeTab={activeTab}
-        tabOptions={tabOptions}
+        tabOptions={tabOptions.map((option) => option.text)}
         handleOnTabChange={handleOnTabChange}
       />
-    </div>
+      <Routes />
+    </>
   );
 };
 
