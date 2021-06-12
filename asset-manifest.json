@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ariel-beautiful-journey/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/ariel-beautiful-journey/static/js/main.e67509f9.chunk.js",
-    "main.js.map": "/ariel-beautiful-journey/static/js/main.e67509f9.chunk.js.map",
+    "main.js": "/ariel-beautiful-journey/static/js/main.1078b0bd.chunk.js",
+    "main.js.map": "/ariel-beautiful-journey/static/js/main.1078b0bd.chunk.js.map",
     "runtime-main.js": "/ariel-beautiful-journey/static/js/runtime-main.fc52bfe7.js",
     "runtime-main.js.map": "/ariel-beautiful-journey/static/js/runtime-main.fc52bfe7.js.map",
     "static/css/2.97503911.chunk.css": "/ariel-beautiful-journey/static/css/2.97503911.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.97503911.chunk.css",
     "static/js/2.c1123f46.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.e67509f9.chunk.js"
+    "static/js/main.1078b0bd.chunk.js"
   ]
 }
