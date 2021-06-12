@@ -1,25 +1,31 @@
 {
   "files": {
     "main.css": "/ariel-beautiful-journey/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/ariel-beautiful-journey/static/js/main.859c0e5e.chunk.js",
-    "main.js.map": "/ariel-beautiful-journey/static/js/main.859c0e5e.chunk.js.map",
-    "runtime-main.js": "/ariel-beautiful-journey/static/js/runtime-main.fc52bfe7.js",
-    "runtime-main.js.map": "/ariel-beautiful-journey/static/js/runtime-main.fc52bfe7.js.map",
+    "main.js": "/ariel-beautiful-journey/static/js/main.85ba4ccf.chunk.js",
+    "main.js.map": "/ariel-beautiful-journey/static/js/main.85ba4ccf.chunk.js.map",
+    "runtime-main.js": "/ariel-beautiful-journey/static/js/runtime-main.32fa2801.js",
+    "runtime-main.js.map": "/ariel-beautiful-journey/static/js/runtime-main.32fa2801.js.map",
     "static/css/2.97503911.chunk.css": "/ariel-beautiful-journey/static/css/2.97503911.chunk.css",
-    "static/js/2.c1123f46.chunk.js": "/ariel-beautiful-journey/static/js/2.c1123f46.chunk.js",
-    "static/js/2.c1123f46.chunk.js.map": "/ariel-beautiful-journey/static/js/2.c1123f46.chunk.js.map",
-    "static/js/3.1de3c328.chunk.js": "/ariel-beautiful-journey/static/js/3.1de3c328.chunk.js",
-    "static/js/3.1de3c328.chunk.js.map": "/ariel-beautiful-journey/static/js/3.1de3c328.chunk.js.map",
+    "static/js/2.6ca048fc.chunk.js": "/ariel-beautiful-journey/static/js/2.6ca048fc.chunk.js",
+    "static/js/2.6ca048fc.chunk.js.map": "/ariel-beautiful-journey/static/js/2.6ca048fc.chunk.js.map",
+    "static/js/3.f3a697b1.chunk.js": "/ariel-beautiful-journey/static/js/3.f3a697b1.chunk.js",
+    "static/js/3.f3a697b1.chunk.js.map": "/ariel-beautiful-journey/static/js/3.f3a697b1.chunk.js.map",
     "index.html": "/ariel-beautiful-journey/index.html",
     "static/css/2.97503911.chunk.css.map": "/ariel-beautiful-journey/static/css/2.97503911.chunk.css.map",
     "static/css/main.6dea0f05.chunk.css.map": "/ariel-beautiful-journey/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.c1123f46.chunk.js.LICENSE.txt": "/ariel-beautiful-journey/static/js/2.c1123f46.chunk.js.LICENSE.txt"
+    "static/js/2.6ca048fc.chunk.js.LICENSE.txt": "/ariel-beautiful-journey/static/js/2.6ca048fc.chunk.js.LICENSE.txt",
+    "static/media/pexels-invisiblepower-1076885.c1a27ea1.jpg": "/ariel-beautiful-journey/static/media/pexels-invisiblepower-1076885.c1a27ea1.jpg",
+    "static/media/pexels-jill-wellington-3776947.f732bfef.jpg": "/ariel-beautiful-journey/static/media/pexels-jill-wellington-3776947.f732bfef.jpg",
+    "static/media/pexels-krivec-ales-547115.109d27ad.jpg": "/ariel-beautiful-journey/static/media/pexels-krivec-ales-547115.109d27ad.jpg",
+    "static/media/pexels-pixabay-207518.fe320fd7.jpg": "/ariel-beautiful-journey/static/media/pexels-pixabay-207518.fe320fd7.jpg",
+    "static/media/pexels-pixabay-414102.e351dcab.jpg": "/ariel-beautiful-journey/static/media/pexels-pixabay-414102.e351dcab.jpg",
+    "static/media/pexels-william-jesús-casique-toro-2744616.d0eb1d3b.jpg": "/ariel-beautiful-journey/static/media/pexels-william-jesús-casique-toro-2744616.d0eb1d3b.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.fc52bfe7.js",
+    "static/js/runtime-main.32fa2801.js",
     "static/css/2.97503911.chunk.css",
-    "static/js/2.c1123f46.chunk.js",
+    "static/js/2.6ca048fc.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.859c0e5e.chunk.js"
+    "static/js/main.85ba4ccf.chunk.js"
   ]
 }
