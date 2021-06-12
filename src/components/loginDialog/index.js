@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { auth } from 'src/firebase';
 import { toastShow } from 'src/components/toastShow';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +11,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles({
   dialogTitle: {
     textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px 0px',
+    fontSize: 24,
+    fontWeight: 500,
+    color: '#9999FF',
   },
   loginButton: {
     background: '#9999FF',
@@ -59,7 +65,9 @@ const LoginDialog = ({ isOpen, handleClose }) => {
   return (
     <div>
       <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle className={classes.dialogTitle}>登入</DialogTitle>
+        <div className={classes.dialogTitle}>
+          登入
+        </div>
         <DialogContent>
           <TextField
             autoFocus

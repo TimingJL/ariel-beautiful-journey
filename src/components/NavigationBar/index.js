@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { getCurrentUser } from 'src/store/selectors/user';
 import LoginDialog from 'src/components/loginDialog';
+import { MakeupOutlineIcon } from 'src/components/icons/makeupOutline';
+
 import { auth } from '../../firebase';
 
 const useStyles = makeStyles({
@@ -17,7 +19,13 @@ const useStyles = makeStyles({
     borderBottom: '1px solid #eee',
     alignItems: 'center',
   },
-  start: {},
+  makeupIcon: {
+    width: 32,
+    height: 32,
+  },
+  start: {
+    paddingLeft: 20,
+  },
   center: {
     textAlign: 'center',
     fontFamily: 'Noto Serif TC',
@@ -57,7 +65,9 @@ const NavigationBar = () => {
   return (
     <>
       <div className={classes.root}>
-        <div className={classes.start} />
+        <div className={classes.start}>
+          <MakeupOutlineIcon className={classes.makeupIcon} fill="#8b8bff" />
+        </div>
         <div className={classes.center}>
           ~愛玩美の愛麗兒~
         </div>
