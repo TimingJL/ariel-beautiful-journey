@@ -75,13 +75,13 @@ const RichTextEditor = ({ handleOnChange }) => {
             next(serverResponse.data.link);
           },
           // personalize failed callback
-          callbackKO: (serverError) => {
-            alert(serverError);
+          callbackKO: () => {
+            // alert(serverError);
           },
           // optional
           // add callback when a image have been chosen
           checkBeforeSend: (file, next) => {
-            console.log(file);
+            // console.log(file);
             next(file); // go back to component and send to the server
           },
         },
