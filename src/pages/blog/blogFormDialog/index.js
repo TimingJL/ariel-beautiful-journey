@@ -5,7 +5,6 @@ import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { toastShow } from 'src/components/toastShow';
 import RichTextEditor from 'src/components/richTextEditor';
-import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import Chip from '@material-ui/core/Chip';
 import Switch from '@material-ui/core/Switch';
@@ -14,6 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 import HeaderBar from './headerBar';
+import TitleInput from './titleInput';
 
 const useStyles = makeStyles(() => ({
   contentWrapper: {
@@ -183,16 +183,7 @@ const BlogFormDialog = ({
       />
       <div className={classes.contentWrapper}>
         <div className={classes.formGroup}>
-          <div className="blog-title">
-            <div className={classes.label}>標題：</div>
-            <TextField
-              autoFocus
-              label="標題"
-              fullWidth
-              variant="outlined"
-              onChange={() => null}
-            />
-          </div>
+          <TitleInput />
           <div className="cover-image-upload">
             <div className={classes.label}>封面圖片：</div>
             {coverLink ? (
