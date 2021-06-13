@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { toastShow } from 'src/components/toastShow';
-import RichTextEditor from 'src/components/richTextEditor';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -13,6 +12,7 @@ import HeaderBar from './headerBar';
 import TitleInput from './titleInput';
 import PublishSwitch from './publishSwitch';
 import TagsInput from './tagsInput';
+import ContentEditor from './contentEditor';
 
 const useStyles = makeStyles(() => ({
   contentWrapper: {
@@ -204,11 +204,10 @@ const BlogFormDialog = ({
             handleAddTagToList={handleAddTagToList}
             handleRemoveTagFromList={handleRemoveTagFromList}
           />
-          <div className="blog-content">
-            <div className={classes.label}>內容：</div>
-            <RichTextEditor htmlString={htmlString} handleOnChange={handleOnEditorChange} />
-          </div>
-          <div style={{ display: 'none' }}>{htmlString}</div>
+          <ContentEditor
+            htmlString={htmlString}
+            handleOnEditorChange={handleOnEditorChange}
+          />
           <PublishSwitch
             isPublished={isPublished}
             handleTogglePublished={() => setIsPublish((prev) => !prev)}
