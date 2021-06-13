@@ -6,13 +6,13 @@ import Slide from '@material-ui/core/Slide';
 import { toastShow } from 'src/components/toastShow';
 import RichTextEditor from 'src/components/richTextEditor';
 import AddIcon from '@material-ui/icons/Add';
-import Chip from '@material-ui/core/Chip';
 import ClearIcon from '@material-ui/icons/Clear';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 import HeaderBar from './headerBar';
 import TitleInput from './titleInput';
 import PublishSwitch from './publishSwitch';
+import TagsInput from './tagsInput';
 
 const useStyles = makeStyles(() => ({
   contentWrapper: {
@@ -54,31 +54,6 @@ const useStyles = makeStyles(() => ({
   previewImage: {
     maxWidth: 300,
     maxHeight: 300,
-  },
-  addTagBox: {
-    border: '1px solid #eee',
-    borderRadius: 4,
-    padding: '8px 16px',
-    display: 'flex',
-  },
-  addTagInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 18,
-    width: '100%',
-  },
-  addTagButton: {
-    color: 'white',
-    marginLeft: 8,
-    whiteSpace: 'nowrap',
-  },
-  chipsWrapper: {
-    '& > *:not(:first-child)': {
-      marginLeft: 4,
-    },
-  },
-  chip: {
-    marginTop: 8,
   },
 }));
 
@@ -222,33 +197,13 @@ const BlogFormDialog = ({
             />
             {coverLink && <a href={coverLink}>{coverLink}</a>}
           </div>
-          <div className="blog-tags">
-            <div className={classes.label}>標籤：</div>
-            <div className={classes.addTagBox}>
-              <input type="text" ref={tagInputRef} className={classes.addTagInput} />
-              <Button
-                className={classes.addTagButton}
-                onClick={handleAddTagToList}
-                color="primary"
-                variant="contained"
-              >
-                <AddIcon />
-                新增標籤
-              </Button>
-            </div>
-            <div className={classes.chipsWrapper}>
-              {tagList.map((tag) => (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  onDelete={tag === tabText ? null : () => handleRemoveTagFromList(tag)}
-                  color="primary"
-                  variant="outlined"
-                  className={classes.chip}
-                />
-              ))}
-            </div>
-          </div>
+          <TagsInput
+            tagInputRef={tagInputRef}
+            tabText={tabText}
+            tagList={tagList}
+            handleAddTagToList={handleAddTagToList}
+            handleRemoveTagFromList={handleRemoveTagFromList}
+          />
           <div className="blog-content">
             <div className={classes.label}>內容：</div>
             <RichTextEditor htmlString={htmlString} handleOnChange={handleOnEditorChange} />
