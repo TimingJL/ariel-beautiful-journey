@@ -15,6 +15,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Chip from '@material-ui/core/Chip';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ClearIcon from '@material-ui/icons/Clear';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -55,9 +57,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   resetUploadButton: {
-    border: '1px solid #8b8bff',
-    color: '#8b8bff',
     marginTop: 8,
+  },
+  removeUploadButton: {
+    marginTop: 8,
+    marginRight: 8,
   },
   previewImage: {
     maxWidth: 300,
@@ -106,6 +110,7 @@ const BlogFormDialog = ({
   const [coverLink, setCoverLink] = useState('');
   const [tagList, setTagList] = useState([tabText]);
   const [isPublished, setIsPublish] = useState(true);
+  const [isDirty, setIsDirty] = useState(false);
 
   const handleAddTagToList = () => {
     const editingTag = tagInputRef.current.value;
@@ -115,6 +120,7 @@ const BlogFormDialog = ({
     setTagList((prevTagList) => {
       const isExist = tagList.indexOf(editingTag) > -1;
       if (!isExist) {
+        setIsDirty(true);
         tagInputRef.current.value = '';
         return [...prevTagList, editingTag];
       }
@@ -128,17 +134,26 @@ const BlogFormDialog = ({
 
   const handleRemoveTagFromList = (tagName) => {
     setTagList((prevTagList) => prevTagList.filter((tag) => tag !== tagName));
+    setIsDirty(true);
   };
 
   const handleClickSaveButton = () => {
+    if (isDirty) {
+      toastShow({
+        type: 'warn',
+        message: 'It is dirty',
+      });
+    }
     toastShow({
       type: 'success',
       message: '儲存成功！',
     });
+    setIsDirty(false);
   };
 
   const handleOnEditorChange = (textValue) => {
     setHtmlString(textValue);
+    setIsDirty(true);
   };
 
   const handleClickUploadButton = () => {
@@ -161,7 +176,13 @@ const BlogFormDialog = ({
       .then((response) => {
         const { data: { link } } = response;
         setCoverLink(link);
+        setIsDirty(true);
       });
+  };
+
+  const handleClearCoverImageLink = () => {
+    setCoverLink('');
+    setIsDirty(true);
   };
 
   return (
@@ -199,10 +220,21 @@ const BlogFormDialog = ({
                   <img src={coverLink} alt="" className={classes.previewImage} />
                 </div>
                 <Button
+                  className={classes.removeUploadButton}
+                  onClick={handleClearCoverImageLink}
+                  color="secondary"
+                  variant="outlined"
+                >
+                  <ClearIcon />
+                  清除目前圖片
+                </Button>
+                <Button
                   className={classes.resetUploadButton}
                   onClick={handleClickUploadButton}
+                  color="primary"
+                  variant="outlined"
                 >
-                  <AddIcon />
+                  <RotateLeftIcon />
                   重新上傳
                 </Button>
               </div>
