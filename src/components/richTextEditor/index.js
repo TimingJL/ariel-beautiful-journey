@@ -1,13 +1,14 @@
-/* eslint-disable max-len */
-import React from 'react';
-// import ReactQuill from 'react-quill';
-import ReactQuill, { Quill } from 'react-quill'; // ES6
-import { ImageUpload } from 'quill-image-upload';
-import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import 'react-quill/dist/quill.snow.css';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
-Quill.register('modules/imageUpload', ImageUpload);
+// Ref:
+// https://weianofsteel.medium.com/10minutes-handle-react-draft-wysiwyg-97278ff899a4
 
 const getEditorHeight = ({ isSmallUp, isMediumUp, isLargeUp }) => {
   if (isLargeUp) {
@@ -22,23 +23,32 @@ const getEditorHeight = ({ isSmallUp, isMediumUp, isLargeUp }) => {
   return 300;
 };
 
-const useStyles = makeStyles(() => createStyles({
-  root: (props) => ({
-    '& > .ql-toolbar': {
-      borderRadius: '4px 4px 0px 0px',
-      background: '#FFFFFFdd',
-    },
-    '& > .ql-container': {
-      borderRadius: '0px 0px 4px 4px',
-      height: props.editorHeight,
-    },
-    '& > .ql-container > .ql-editor': {
-      height: props.editorHeight,
-    },
+const useStyles = makeStyles({
+  container: {
+    padding: '20px 0px',
+  },
+  toolbarClassName: {
+    border: 'none',
+    borderBottom: '1px solid #eee',
+  },
+  wrapperClassName: {
+    border: '1px solid #eee',
+  },
+  editorClassName: (props) => ({
+    padding: '0px 20px',
+    height: props.editorHeight,
   }),
-}));
+});
 
-const RichTextEditor = ({ handleOnChange }) => {
+const RichTextEditor = ({ htmlString = '', handleOnChange }) => {
+  const contentBlock = htmlToDraft(htmlString);
+  const [editorState, setEditorState] = useState(() => {
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      return EditorState.createWithContent(contentState);
+    }
+    return EditorState.createEmpty();
+  });
   const theme = useTheme();
   const isSmallUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isMediumUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -48,59 +58,16 @@ const RichTextEditor = ({ handleOnChange }) => {
   });
   const classes = useStyles({ editorHeight });
 
-  const handleOnEditorChange = (editingValue) => {
-    console.log('editingValue: ', editingValue);
-    if (editingValue === '<p><br></p>') {
-      handleOnChange('');
-    } else {
-      handleOnChange(editingValue);
-    }
-  };
-
   return (
-    <ReactQuill
-      className={classes.root}
-      onChange={handleOnEditorChange}
-      modules={{
-        imageUpload: {
-          url: 'https://api.imgur.com/3/image', // server url. If the url is empty then the base64 returns
-          method: 'POST', // change query method, default 'POST'
-          name: 'image', // custom form name
-          withCredentials: false, // withCredentials
-          headers: {
-            Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`,
-          },
-          // personalize successful callback and call next function to insert new url to the editor
-          callbackOK: (serverResponse, next) => {
-            next(serverResponse.data.link);
-          },
-          // personalize failed callback
-          callbackKO: (serverError) => {
-            alert(serverError);
-          },
-          // optional
-          // add callback when a image have been chosen
-          checkBeforeSend: (file, next) => {
-            console.log(file);
-            next(file); // go back to component and send to the server
-          },
-        },
-        toolbar: [
-          [{ header: [1, 2, 3, 4, 5, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-          ['link', 'image', 'video'],
-          [{ color: [] }, { background: [] }],
-          ['clean'],
-        ],
+    <Editor
+      editorState={editorState}
+      toolbarClassName={classes.toolbarClassName}
+      wrapperClassName={classes.wrapperClassName}
+      editorClassName={classes.editorClassName}
+      onEditorStateChange={(editingState) => {
+        handleOnChange(draftToHtml(convertToRaw(editingState.getCurrentContent())));
+        setEditorState(editingState);
       }}
-      formats={[
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'color', 'background',
-        'link', 'image', 'video',
-      ]}
     />
   );
 };

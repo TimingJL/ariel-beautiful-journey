@@ -67,7 +67,7 @@ const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={r
 const BlogFormDialog = ({ title, isOpen, handleClose }) => {
   const classes = useStyles();
   const inputFileRef = useRef(null);
-  const [blogContent, setBlogContent] = useState('');
+  const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
 
   const handleClickSaveButton = () => {
@@ -78,7 +78,7 @@ const BlogFormDialog = ({ title, isOpen, handleClose }) => {
   };
 
   const handleOnEditorChange = (textValue) => {
-    setBlogContent(textValue);
+    setHtmlString(textValue);
   };
 
   const handleClickUploadButton = () => {
@@ -165,9 +165,9 @@ const BlogFormDialog = ({ title, isOpen, handleClose }) => {
           </div>
           <div className="blog-content">
             <div className={classes.label}>內容：</div>
-            <RichTextEditor handleOnChange={handleOnEditorChange} />
+            <RichTextEditor htmlString={htmlString} handleOnChange={handleOnEditorChange} />
           </div>
-          <div style={{ display: 'none' }}>{blogContent}</div>
+          <div style={{ display: 'none' }}>{htmlString}</div>
         </div>
       </div>
     </Dialog>
