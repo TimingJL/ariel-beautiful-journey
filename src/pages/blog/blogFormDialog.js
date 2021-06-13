@@ -12,11 +12,12 @@ import { toastShow } from 'src/components/toastShow';
 import RichTextEditor from 'src/components/richTextEditor';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
-    background: '#8b8bff',
+    color: 'white',
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -60,15 +61,67 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 300,
     maxHeight: 300,
   },
+  addTagBox: {
+    border: '1px solid #eee',
+    borderRadius: 4,
+    padding: '8px 16px',
+    display: 'flex',
+  },
+  addTagInput: {
+    border: 'none',
+    outline: 'none',
+    fontSize: 18,
+    width: '100%',
+  },
+  addTagButton: {
+    color: 'white',
+    marginLeft: 8,
+    whiteSpace: 'nowrap',
+  },
+  chipsWrapper: {
+    '& > *:not(:first-child)': {
+      marginLeft: 4,
+    },
+  },
+  chip: {
+    marginTop: 8,
+  },
 }));
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const BlogFormDialog = ({ title, isOpen, handleClose }) => {
+const BlogFormDialog = ({
+  title, tabText, isOpen, handleClose,
+}) => {
   const classes = useStyles();
   const inputFileRef = useRef(null);
+  const tagInputRef = useRef(null);
   const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
+  const [tagList, setTagList] = useState([tabText]);
+
+  const handleAddTagToList = () => {
+    const editingTag = tagInputRef.current.value;
+    if (editingTag.trim().length === 0) {
+      return;
+    }
+    setTagList((prevTagList) => {
+      const isExist = tagList.indexOf(editingTag) > -1;
+      if (!isExist) {
+        tagInputRef.current.value = '';
+        return [...prevTagList, editingTag];
+      }
+      toastShow({
+        type: 'warn',
+        message: '標籤重複！',
+      });
+      return prevTagList;
+    });
+  };
+
+  const handleRemoveTagFromList = (tagName) => {
+    setTagList((prevTagList) => prevTagList.filter((tag) => tag !== tagName));
+  };
 
   const handleClickSaveButton = () => {
     toastShow({
@@ -162,6 +215,33 @@ const BlogFormDialog = ({ title, isOpen, handleClose }) => {
               style={{ display: 'none' }}
             />
             {coverLink && <a href={coverLink}>{coverLink}</a>}
+          </div>
+          <div className="blog-tags">
+            <div className={classes.label}>標籤：</div>
+            <div className={classes.addTagBox}>
+              <input type="text" ref={tagInputRef} className={classes.addTagInput} />
+              <Button
+                className={classes.addTagButton}
+                onClick={handleAddTagToList}
+                color="primary"
+                variant="contained"
+              >
+                <AddIcon />
+                新增標籤
+              </Button>
+            </div>
+            <div className={classes.chipsWrapper}>
+              {tagList.map((tag) => (
+                <Chip
+                  key={tag}
+                  label={tag}
+                  onDelete={tag === tabText ? null : () => handleRemoveTagFromList(tag)}
+                  color="primary"
+                  variant="outlined"
+                  className={classes.chip}
+                />
+              ))}
+            </div>
           </div>
           <div className="blog-content">
             <div className={classes.label}>內容：</div>

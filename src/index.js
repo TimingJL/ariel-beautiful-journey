@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
@@ -11,10 +12,23 @@ import store from './store';
 
 import App from './App';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#8b8bff',
+    },
+    secondary: {
+      main: '#310A31',
+    },
+  },
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <Router basename={process.env.PUBLIC_URL}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </Router>
     <ToastContainer />
   </Provider>,

@@ -16,14 +16,7 @@ const useStyles = makeStyles({
     margin: '20px 0px 40px',
   },
   createButton: {
-    background: '#9999FF',
     color: 'white',
-    transition: 'opacity 0.2s ease-in-out',
-    '&:hover': {
-      backgroundColor: '#9999FF',
-      opacity: 0.7,
-      transition: 'opacity 0.2s ease-in-out',
-    },
   },
 });
 
@@ -48,6 +41,8 @@ const BlogLayout = ({ children, title }) => {
             onClick={handleOpenDialog}
             size="large"
             startIcon={<AddIcon />}
+            color="primary"
+            variant="contained"
           >
             {blogTitle}
           </Button>
@@ -55,6 +50,7 @@ const BlogLayout = ({ children, title }) => {
         {children}
       </Container>
       <BlogFormDialog
+        tabText={title}
         title={blogTitle}
         isOpen={isOpenDialog}
         handleClose={handleCloseDialog}
