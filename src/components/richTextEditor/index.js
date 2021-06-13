@@ -1,8 +1,13 @@
+/* eslint-disable max-len */
 import React from 'react';
-import ReactQuill from 'react-quill';
+// import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill'; // ES6
+import { ImageUpload } from 'quill-image-upload';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import 'react-quill/dist/quill.snow.css';
+
+Quill.register('modules/imageUpload', ImageUpload);
 
 const getEditorHeight = ({ isSmallUp, isMediumUp, isLargeUp }) => {
   if (isLargeUp) {
@@ -43,11 +48,12 @@ const RichTextEditor = ({ handleOnChange }) => {
   });
   const classes = useStyles({ editorHeight });
 
-  const handleOnEditorChange = (value) => {
-    if (value === '<p><br></p>') {
+  const handleOnEditorChange = (editingValue) => {
+    console.log('editingValue: ', editingValue);
+    if (editingValue === '<p><br></p>') {
       handleOnChange('');
     } else {
-      handleOnChange(value);
+      handleOnChange(editingValue);
     }
   };
 
@@ -56,11 +62,34 @@ const RichTextEditor = ({ handleOnChange }) => {
       className={classes.root}
       onChange={handleOnEditorChange}
       modules={{
+        imageUpload: {
+          url: 'https://api.imgur.com/3/image', // server url. If the url is empty then the base64 returns
+          method: 'POST', // change query method, default 'POST'
+          name: 'image', // custom form name
+          withCredentials: false, // withCredentials
+          headers: {
+            Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`,
+          },
+          // personalize successful callback and call next function to insert new url to the editor
+          callbackOK: (serverResponse, next) => {
+            next(serverResponse.data.link);
+          },
+          // personalize failed callback
+          callbackKO: (serverError) => {
+            alert(serverError);
+          },
+          // optional
+          // add callback when a image have been chosen
+          checkBeforeSend: (file, next) => {
+            console.log(file);
+            next(file); // go back to component and send to the server
+          },
+        },
         toolbar: [
           [{ header: [1, 2, 3, 4, 5, false] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-          ['link', 'image'],
+          ['link', 'image', 'video'],
           [{ color: [] }, { background: [] }],
           ['clean'],
         ],
@@ -70,7 +99,7 @@ const RichTextEditor = ({ handleOnChange }) => {
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
         'color', 'background',
-        'link', 'image',
+        'link', 'image', 'video',
       ]}
     />
   );
