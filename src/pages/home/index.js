@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Gallery from 'src/components/gallery';
 
 const useStyles = makeStyles({
   container: {
@@ -11,9 +12,12 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   return (
-    <Container className={classes.container}>
-      Home
-    </Container>
+    <>
+      <Gallery />
+      <Container className={classes.container}>
+        Home
+      </Container>
+    </>
   );
 };
 

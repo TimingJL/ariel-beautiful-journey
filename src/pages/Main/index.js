@@ -3,7 +3,6 @@ import {
   useLocation, useHistory,
 } from 'react-router-dom';
 
-import Gallery from 'src/components/gallery';
 import NavigationBar from 'src/components/navigationBar';
 import NavigationTabs from 'src/components/navigationTabs';
 import Routes from './routes';
@@ -51,7 +50,6 @@ const Main = () => {
         tabOptions={tabOptions.map((option) => option.text)}
         handleOnTabChange={handleOnTabChange}
       />
-      <Gallery />
       <Routes />
     </>
   );
