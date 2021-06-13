@@ -49,6 +49,7 @@ const BlogFormDialog = ({
   const handleOnBlogTitleChange = () => {
     const editingTitle = blogTitleInputRef.current.value;
     setBlogTitle(editingTitle);
+    setIsDirty(true);
   };
 
   const handleAddTagToList = () => {
@@ -130,6 +131,7 @@ const BlogFormDialog = ({
     <Dialog fullScreen open={isOpen} onClose={handleClose} TransitionComponent={Transition}>
       <HeaderBar
         title={title}
+        isDirty={isDirty}
         handleClose={handleClose}
         handleClickSaveButton={handleClickSaveButton}
       />
