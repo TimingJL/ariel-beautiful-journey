@@ -2,7 +2,7 @@ import React from 'react';
 import BlogLayout from 'src/components/blogLayout';
 
 const Blog = ({ title }) => (
-  <BlogLayout>
+  <BlogLayout title={title}>
     {title}
   </BlogLayout>
 );

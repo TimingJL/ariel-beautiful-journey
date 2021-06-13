@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const BlogLayout = ({ children }) => {
+const BlogLayout = ({ children, title }) => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -37,7 +37,7 @@ const BlogLayout = ({ children }) => {
           size="large"
           startIcon={<AddIcon />}
         >
-          新增文章
+          {`新增${title}文章`}
         </Button>
       </div>
       {children}
