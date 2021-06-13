@@ -8,15 +8,19 @@ import {
   TAB_TRAVEL,
   TAB_AROMATHERAPY,
   TAB_LIFE,
+  TAB_TEXT_MAKEUP,
+  TAB_TEXT_TRAVEL,
+  TAB_TEXT_AROMATHERAPY,
+  TAB_TEXT_LIFE,
 } from './const';
 import { withBlogPage } from './withBlogPage';
 
 export default () => (
   <Switch>
     <Route exact path={['/', '/ariel-beautiful-journey']} component={Home} />
-    <Route path={`/${TAB_MAKEUP}`} component={withBlogPage(Blog, { blogKey: TAB_MAKEUP, title: '彩妝' })} />
-    <Route path={`/${TAB_TRAVEL}`} component={withBlogPage(Blog, { blogKey: TAB_TRAVEL, title: '旅行' })} />
-    <Route path={`/${TAB_AROMATHERAPY}`} component={withBlogPage(Blog, { blogKey: TAB_AROMATHERAPY, title: '芳療' })} />
-    <Route path={`/${TAB_LIFE}`} component={withBlogPage(Blog, { blogKey: TAB_LIFE, title: '生活日誌' })} />
+    <Route path={`/${TAB_MAKEUP}`} component={withBlogPage(Blog, { blogKey: TAB_MAKEUP, title: TAB_TEXT_MAKEUP })} />
+    <Route path={`/${TAB_TRAVEL}`} component={withBlogPage(Blog, { blogKey: TAB_TRAVEL, title: TAB_TEXT_TRAVEL })} />
+    <Route path={`/${TAB_AROMATHERAPY}`} component={withBlogPage(Blog, { blogKey: TAB_AROMATHERAPY, title: TAB_TEXT_AROMATHERAPY })} />
+    <Route path={`/${TAB_LIFE}`} component={withBlogPage(Blog, { blogKey: TAB_LIFE, title: TAB_TEXT_LIFE })} />
   </Switch>
 );

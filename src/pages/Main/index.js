@@ -10,28 +10,33 @@ import {
   TAB_TRAVEL,
   TAB_AROMATHERAPY,
   TAB_LIFE,
+  TAB_TEXT_HOME,
+  TAB_TEXT_MAKEUP,
+  TAB_TEXT_TRAVEL,
+  TAB_TEXT_AROMATHERAPY,
+  TAB_TEXT_LIFE,
 } from './const';
 import Routes from './routes';
 
 const tabOptions = [
   {
-    text: '首頁',
+    text: TAB_TEXT_HOME,
     path: '/',
   },
   {
-    text: '彩妝',
+    text: TAB_TEXT_MAKEUP,
     path: `/${TAB_MAKEUP}`,
   },
   {
-    text: '旅行',
+    text: TAB_TEXT_TRAVEL,
     path: `/${TAB_TRAVEL}`,
   },
   {
-    text: '芳療',
+    text: TAB_TEXT_AROMATHERAPY,
     path: `/${TAB_AROMATHERAPY}`,
   },
   {
-    text: '生活日誌',
+    text: TAB_TEXT_LIFE,
     path: `/${TAB_LIFE}`,
   },
 ];

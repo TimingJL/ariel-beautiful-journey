@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogLayout from 'src/components/blogLayout';
+import BlogLayout from 'src/pages/blog/blogLayout';
 
 const Blog = ({ title }) => (
   <BlogLayout title={title}>
