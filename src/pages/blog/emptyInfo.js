@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    marginTop: 60,
   },
   emptyBoxImage: {
     width: 120,
