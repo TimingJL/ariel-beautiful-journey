@@ -35,14 +35,21 @@ const BlogFormDialog = ({
   title, tabText, isOpen, handleClose,
 }) => {
   const classes = useStyles();
+  const blogTitleInputRef = useRef(null);
   const inputFileRef = useRef(null);
   const tagInputRef = useRef(null);
+  const [blogTitle, setBlogTitle] = useState('');
   const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
   const [isUploadLoading, setIsUploadLoading] = useState(false);
   const [tagList, setTagList] = useState([tabText]);
   const [isPublished, setIsPublish] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
+
+  const handleOnBlogTitleChange = () => {
+    const editingTitle = blogTitleInputRef.current.value;
+    setBlogTitle(editingTitle);
+  };
 
   const handleAddTagToList = () => {
     const editingTag = tagInputRef.current.value;
@@ -128,7 +135,11 @@ const BlogFormDialog = ({
       />
       <div className={classes.contentWrapper}>
         <div className={classes.formGroup}>
-          <TitleInput />
+          <TitleInput
+            blogTitleInputRef={blogTitleInputRef}
+            blogTitle={blogTitle}
+            handleOnChange={handleOnBlogTitleChange}
+          />
           <CoverImageUploader
             inputFileRef={inputFileRef}
             coverLink={coverLink}
