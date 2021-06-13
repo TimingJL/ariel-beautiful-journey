@@ -39,6 +39,7 @@ const BlogFormDialog = ({
   const tagInputRef = useRef(null);
   const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
+  const [isUploadLoading, setIsUploadLoading] = useState(false);
   const [tagList, setTagList] = useState([tabText]);
   const [isPublished, setIsPublish] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
@@ -92,6 +93,7 @@ const BlogFormDialog = ({
   };
 
   const handleOnSelectImage = (event) => {
+    setIsUploadLoading(true);
     const formData = new FormData();
     formData.append('image', event.target.files[0]);
 
@@ -108,6 +110,7 @@ const BlogFormDialog = ({
         const { data: { link } } = response;
         setCoverLink(link);
         setIsDirty(true);
+        setIsUploadLoading(false);
       });
   };
 
@@ -129,6 +132,7 @@ const BlogFormDialog = ({
           <CoverImageUploader
             inputFileRef={inputFileRef}
             coverLink={coverLink}
+            isUploadLoading={isUploadLoading}
             handleClickUploadButton={handleClickUploadButton}
             handleOnSelectImage={handleOnSelectImage}
             handleClearCoverImageLink={handleClearCoverImageLink}

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import FormLabel from './formLabel';
 
@@ -25,9 +26,15 @@ const useStyles = makeStyles(() => ({
   resetUploadButton: {
     marginTop: 8,
   },
+  startIcon: {
+    marginRight: 8,
+  },
   removeUploadButton: {
     marginTop: 8,
     marginRight: 8,
+    '& > span > svg': {
+      marginRight: 4,
+    },
   },
   previewImage: {
     maxWidth: 300,
@@ -38,6 +45,7 @@ const useStyles = makeStyles(() => ({
 const CoverImageUploader = ({
   inputFileRef,
   coverLink,
+  isUploadLoading,
   handleClickUploadButton,
   handleOnSelectImage,
   handleClearCoverImageLink,
@@ -67,7 +75,9 @@ const CoverImageUploader = ({
             color="primary"
             variant="outlined"
           >
-            <RotateLeftIcon />
+            {isUploadLoading ? (
+              <CircularProgress size={24} className={classes.startIcon} />
+            ) : <RotateLeftIcon className={classes.startIcon} />}
             重新上傳
           </Button>
         </div>
@@ -76,8 +86,14 @@ const CoverImageUploader = ({
           className={classes.uploadButton}
           onClick={handleClickUploadButton}
         >
-          <AddIcon />
-          上傳圖片
+          {isUploadLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <AddIcon />
+              上傳圖片
+            </>
+          )}
         </Button>
       )}
       <input
