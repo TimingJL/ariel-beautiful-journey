@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   addTagInput: {
     border: 'none',
     outline: 'none',
-    fontSize: 18,
+    fontSize: 16,
     width: '100%',
   },
   addTagButton: {
@@ -43,7 +43,12 @@ const TagsInput = ({
     <div className="blog-tags">
       <FormLabel label="標籤" />
       <div className={classes.addTagBox}>
-        <input type="text" ref={tagInputRef} className={classes.addTagInput} />
+        <input
+          type="text"
+          ref={tagInputRef}
+          className={classes.addTagInput}
+          placeholder="標籤名稱"
+        />
         <Button
           className={classes.addTagButton}
           onClick={handleAddTagToList}
