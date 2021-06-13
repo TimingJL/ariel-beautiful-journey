@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
-/* eslint-disable max-len */
 import React from 'react';
 import ReactQuill, { Quill } from 'react-quill'; // ES6
 import { ImageUpload } from 'quill-image-upload';
