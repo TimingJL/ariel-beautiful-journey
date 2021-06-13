@@ -13,6 +13,8 @@ import RichTextEditor from 'src/components/richTextEditor';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import Chip from '@material-ui/core/Chip';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -86,6 +88,10 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     marginTop: 8,
   },
+  publishDescription: {
+    color: '#676767',
+    fontSize: 14,
+  },
 }));
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
@@ -99,6 +105,7 @@ const BlogFormDialog = ({
   const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
   const [tagList, setTagList] = useState([tabText]);
+  const [isPublished, setIsPublish] = useState(true);
 
   const handleAddTagToList = () => {
     const editingTag = tagInputRef.current.value;
@@ -248,6 +255,22 @@ const BlogFormDialog = ({
             <RichTextEditor htmlString={htmlString} handleOnChange={handleOnEditorChange} />
           </div>
           <div style={{ display: 'none' }}>{htmlString}</div>
+          <div className="blog-publish-switch">
+            <div className={classes.label}>顯示狀態：</div>
+            <FormControlLabel
+              control={(
+                <Switch
+                  checked={isPublished}
+                  onChange={() => setIsPublish((prev) => !prev)}
+                  color="primary"
+                />
+              )}
+              label="公開並發佈文章"
+            />
+            <div className={classes.publishDescription}>
+              {isPublished ? '您的文章將於儲存後立即公開發佈' : '您的文章將於儲存後設為隱私'}
+            </div>
+          </div>
         </div>
       </div>
     </Dialog>
