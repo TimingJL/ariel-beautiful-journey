@@ -89,6 +89,7 @@ const BlogFormDialog = ({ title, isOpen, handleClose }) => {
     const formData = new FormData();
     formData.append('image', event.target.files[0]);
 
+    // Note: Imgur blocks all requests from localhost.
     fetch('https://api.imgur.com/3/image/', {
       method: 'post',
       headers: {
