@@ -1,10 +1,10 @@
 import React from 'react';
 import BlogLayout from 'src/components/blogLayout';
 
-const Aromatherapy = () => (
+const Blog = ({ title }) => (
   <BlogLayout>
-    Aromatherapy
+    {title}
   </BlogLayout>
 );
 
-export default Aromatherapy;
+export default Blog;

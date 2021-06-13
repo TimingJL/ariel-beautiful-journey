@@ -5,6 +5,12 @@ import {
 
 import NavigationBar from 'src/components/navigationBar';
 import NavigationTabs from 'src/components/navigationTabs';
+import {
+  TAB_MAKEUP,
+  TAB_TRAVEL,
+  TAB_AROMATHERAPY,
+  TAB_LIFE,
+} from './const';
 import Routes from './routes';
 
 const tabOptions = [
@@ -14,19 +20,19 @@ const tabOptions = [
   },
   {
     text: '彩妝',
-    path: '/makeup',
+    path: `/${TAB_MAKEUP}`,
   },
   {
     text: '旅行',
-    path: '/travel',
+    path: `/${TAB_TRAVEL}`,
   },
   {
     text: '芳療',
-    path: '/aromatherapy',
+    path: `/${TAB_AROMATHERAPY}`,
   },
   {
     text: '生活日誌',
-    path: '/life',
+    path: `/${TAB_LIFE}`,
   },
 ];
 
