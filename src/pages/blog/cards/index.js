@@ -37,6 +37,7 @@ const Cards = ({ tabText, blogs }) => {
     setSelectedCardId(blogId);
     setIsOpenDialog(true);
   };
+
   const handleCloseDialog = () => {
     setIsOpenDialog(false);
     setSelectedCardId(null);

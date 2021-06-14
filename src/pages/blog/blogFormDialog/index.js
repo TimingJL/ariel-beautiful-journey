@@ -188,7 +188,10 @@ const BlogFormDialog = ({
     if (blogId) {
       updateBlog({
         blogId,
-        data,
+        data: {
+          ...blog,
+          ...data,
+        },
         onSuccess: handleSuccess,
       });
     } else {
