@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BlogLayout from 'src/pages/blog/blogLayout';
+
 import EmptyInfo from './emptyInfo';
 
 const Blog = ({ title }) => (
