@@ -1,5 +1,6 @@
 export const BLOG_TITLE = 'title';
 export const BLOG_CONTENT = 'content';
+export const BLOG_VIDEO_LINK = 'videoLink';
 export const BLOG_COVER_LINK = 'coverLink';
 export const BLOG_TAGS = 'tags';
 export const BLOG_IS_PUBLISHED = 'isPublished';
@@ -10,6 +11,7 @@ export const blogTemplate = {
   id: '',
   [BLOG_TITLE]: '',
   [BLOG_CONTENT]: '',
+  [BLOG_VIDEO_LINK]: '',
   [BLOG_COVER_LINK]: '',
   [BLOG_TAGS]: [],
   [BLOG_IS_PUBLISHED]: true,

@@ -7,13 +7,21 @@ const useStyles = makeStyles(() => ({
     marginTop: 32,
     marginBottom: 12,
   },
+  requiredStar: {
+    fontWeight: 400,
+    color: '#f04',
+  },
 }));
 
-const FormLabel = ({ label }) => {
+const FormLabel = ({ label, isRequired = false }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.label}>{`${label}：`}</div>
+    <div className={classes.label}>
+      <span>{label}</span>
+      {isRequired && <span className={classes.requiredStar}>*</span>}
+      <span>：</span>
+    </div>
   );
 };
 

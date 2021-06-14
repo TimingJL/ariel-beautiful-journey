@@ -3,11 +3,12 @@ import TextField from '@material-ui/core/TextField';
 import FormLabel from './formLabel';
 
 const TitleInput = ({
+  isRequired,
   blogTitleInputRef,
   handleOnChange,
 }) => (
   <div className="blog-title">
-    <FormLabel label="標題" />
+    <FormLabel label="標題" isRequired={isRequired} />
     <TextField
       ref={blogTitleInputRef}
       autoFocus

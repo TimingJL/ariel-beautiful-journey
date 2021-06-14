@@ -138,11 +138,13 @@ const BlogFormDialog = ({
       <div className={classes.contentWrapper}>
         <div className={classes.formGroup}>
           <TitleInput
+            isRequired
             blogTitleInputRef={blogTitleInputRef}
             blogTitle={blogTitle}
             handleOnChange={handleOnBlogTitleChange}
           />
           <CoverImageUploader
+            isRequired
             inputFileRef={inputFileRef}
             coverLink={coverLink}
             isUploadLoading={isUploadLoading}
@@ -158,6 +160,7 @@ const BlogFormDialog = ({
             handleRemoveTagFromList={handleRemoveTagFromList}
           />
           <ContentEditor
+            isRequired
             htmlString={htmlString}
             handleOnEditorChange={handleOnEditorChange}
           />

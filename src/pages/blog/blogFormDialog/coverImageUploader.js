@@ -44,6 +44,7 @@ const useStyles = makeStyles(() => ({
 
 const CoverImageUploader = ({
   inputFileRef,
+  isRequired,
   coverLink,
   isUploadLoading,
   handleClickUploadButton,
@@ -54,7 +55,7 @@ const CoverImageUploader = ({
 
   return (
     <div className="cover-image-upload">
-      <FormLabel label="封面圖片" />
+      <FormLabel label="封面圖片" isRequired={isRequired} />
       {coverLink ? (
         <div>
           <div>
