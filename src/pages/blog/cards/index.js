@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import VerticalCard from 'src/components/cards/verticalCard';
 import HorizontalCard from 'src/components/cards/horizontalCard';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Cards = ({ tabText, blogs }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -47,6 +50,10 @@ const Cards = ({ tabText, blogs }) => {
   const handleCloseDialog = () => {
     setIsOpenDialog(false);
     setSelectedCardId(null);
+  };
+
+  const handleClickCard = (blogId) => {
+    history.push(`/blogs/${blogId}`);
   };
 
   const handleClickDeleteButton = (blogId) => {
@@ -92,6 +99,7 @@ const Cards = ({ tabText, blogs }) => {
               title={title}
               coverLink={coverLink}
               tags={tags}
+              handleClickCard={() => handleClickCard(id)}
               handleEdit={() => handleOpenDialog(id)}
               handleDelete={() => handleClickDeleteButton(id)}
             />

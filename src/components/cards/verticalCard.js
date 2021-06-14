@@ -31,13 +31,13 @@ const useStyles = makeStyles({
 });
 
 const VerticalCard = ({
-  title, coverLink, tags, handleEdit, handleDelete,
+  title, coverLink, tags, handleEdit, handleDelete, handleClickCard,
 }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={handleClickCard}>
         <CardMedia
           className={classes.media}
           image={coverLink}

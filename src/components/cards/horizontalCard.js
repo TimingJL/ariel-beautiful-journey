@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     width: 160,
     flex: '0 0 auto',
   },
+  media: {
+    width: '100%',
+    height: '100%',
+  },
   controls: {
     display: 'flex',
     alignItems: 'center',
@@ -39,17 +44,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HorizontalCard = ({
-  title, coverLink, tags, handleEdit, handleDelete,
+  title, coverLink, tags, handleEdit, handleDelete, handleClickCard,
 }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image={coverLink}
-        title={title}
-      />
+      <CardActionArea className={classes.cover} onClick={handleClickCard}>
+        <CardMedia
+          className={classes.media}
+          image={coverLink}
+          title={title}
+        />
+      </CardActionArea>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="h5" component="h5" className={classes.title}>

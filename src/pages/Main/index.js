@@ -25,19 +25,19 @@ const tabOptions = [
   },
   {
     text: TAB_TEXT_MAKEUP,
-    path: `/${TAB_MAKEUP}`,
+    path: `/blogs/${TAB_MAKEUP}`,
   },
   {
     text: TAB_TEXT_TRAVEL,
-    path: `/${TAB_TRAVEL}`,
+    path: `/blogs/${TAB_TRAVEL}`,
   },
   {
     text: TAB_TEXT_AROMATHERAPY,
-    path: `/${TAB_AROMATHERAPY}`,
+    path: `/blogs/${TAB_AROMATHERAPY}`,
   },
   {
     text: TAB_TEXT_LIFE,
-    path: `/${TAB_LIFE}`,
+    path: `/blogs/${TAB_LIFE}`,
   },
 ];
 
