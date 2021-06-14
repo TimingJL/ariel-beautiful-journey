@@ -5,6 +5,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import BlogFormDialog from 'src/pages/blog/blogFormDialog';
 import ConfirmDialog from 'src/components/confirmDialog';
+import { removeBlog, getBlogs } from 'src/services/blogs';
+import { useDispatch } from 'react-redux';
+import { getBlogsDone, getBlogsCall, getBlogsFail } from 'src/store/actions/blog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cards = ({ tabText, blogs }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -51,6 +55,23 @@ const Cards = ({ tabText, blogs }) => {
   };
 
   const handleSubmitDeleteBlog = () => {
+    removeBlog({
+      blogId: selectedCardId,
+      onSuccess: () => {
+        getBlogs({
+          onStartWith: () => {
+            dispatch(getBlogsCall());
+          },
+          onSuccess: ({ response }) => {
+            const formattedBlogs = Object.keys(response).map((key) => response[key]);
+            dispatch(getBlogsDone({ blogs: formattedBlogs }));
+          },
+          onError: () => {
+            dispatch(getBlogsFail());
+          },
+        });
+      },
+    });
     setIsOpenConfirm(false);
   };
 
