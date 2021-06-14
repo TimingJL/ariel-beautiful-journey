@@ -16,7 +16,7 @@ const TextInput = ({
       label={label}
       fullWidth
       variant="outlined"
-      value={value}
+      defaultValue={value}
       onChange={handleOnChange}
     />
   </div>

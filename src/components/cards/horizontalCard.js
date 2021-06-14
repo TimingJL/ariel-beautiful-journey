@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HorizontalCard = ({ title, coverLink, tags }) => {
+const HorizontalCard = ({
+  title, coverLink, tags, handleEdit,
+}) => {
   const classes = useStyles();
 
   return (
@@ -66,7 +68,7 @@ const HorizontalCard = ({ title, coverLink, tags }) => {
           </div>
         </CardContent>
         <div className={classes.controls}>
-          <IconButton aria-label="edit" size="small">
+          <IconButton aria-label="edit" size="small" onClick={handleEdit}>
             <EditIcon />
           </IconButton>
           <IconButton aria-label="delete" size="small">

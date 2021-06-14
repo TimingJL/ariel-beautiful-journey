@@ -51,8 +51,8 @@ const BlogLayout = ({ children, title }) => {
       </Container>
       {isOpenDialog && (
       <BlogFormDialog
+        dialogTitle={blogTitle}
         tabText={title}
-        title={blogTitle}
         isOpen={isOpenDialog}
         handleClose={handleCloseDialog}
       />

@@ -13,7 +13,9 @@ import {
   BLOG_TAGS,
   BLOG_IS_PUBLISHED,
 } from 'src/dataTemplate/blog';
-import { createBlog, getBlogs } from 'src/services/blogs';
+import { createBlog, updateBlog, getBlogs } from 'src/services/blogs';
+import { useDispatch } from 'react-redux';
+import { getBlogsDone, getBlogsCall, getBlogsFail } from 'src/store/actions/blog';
 
 import HeaderBar from './headerBar';
 import TextInput from './textInput';
@@ -68,7 +70,7 @@ const getErrorFieldList = ({
       '封面圖片',
     ];
   }
-  if (videoLink.trim().length > 0 && !isValidVideoLink) {
+  if (videoLink && videoLink.trim().length > 0 && !isValidVideoLink) {
     errorFieldList = [
       ...errorFieldList,
       'Youtube 影片連結',
@@ -79,18 +81,28 @@ const getErrorFieldList = ({
 };
 
 const BlogFormDialog = ({
-  title, tabText, isOpen, handleClose,
+  blog = {}, dialogTitle, tabText, isOpen, handleClose,
 }) => {
+  const {
+    id: blogId,
+    title: defaultBlogTitle,
+    videoLink: defaultVideoLink,
+    content: defaultHtmlString,
+    coverLink: defaultCoverLink,
+    tags: defaultTags,
+    isPublished: defaultIsPublished,
+  } = blog;
   const classes = useStyles();
+  const dispatch = useDispatch();
   const inputFileRef = useRef(null);
   const tagInputRef = useRef(null);
-  const [blogTitle, setBlogTitle] = useState('');
-  const [videoLink, setVideoLink] = useState('');
-  const [htmlString, setHtmlString] = useState('');
-  const [coverLink, setCoverLink] = useState('');
+  const [blogTitle, setBlogTitle] = useState(defaultBlogTitle);
+  const [videoLink, setVideoLink] = useState(defaultVideoLink);
+  const [htmlString, setHtmlString] = useState(defaultHtmlString);
+  const [coverLink, setCoverLink] = useState(defaultCoverLink);
   const [isUploadLoading, setIsUploadLoading] = useState(false);
-  const [tagList, setTagList] = useState([tabText]);
-  const [isPublished, setIsPublish] = useState(true);
+  const [tagList, setTagList] = useState(defaultTags || [tabText]);
+  const [isPublished, setIsPublish] = useState(defaultIsPublished);
   const [isDirty, setIsDirty] = useState(false);
   const [isSaveBlogLoading, setIsSaveBlogLoading] = useState(false);
 
@@ -147,24 +159,44 @@ const BlogFormDialog = ({
       [BLOG_TAGS]: tagList,
       [BLOG_IS_PUBLISHED]: isPublished,
     };
-    setIsSaveBlogLoading(true);
-    createBlog({
-      data,
-      onSuccess: () => {
-        toastShow({
-          type: 'success',
-          message: '儲存成功！',
-        });
-        setIsDirty(false);
-        setIsSaveBlogLoading(false);
 
-        getBlogs({
-          onSuccess: () => {
-            handleClose();
-          },
-        });
-      },
-    });
+    setIsSaveBlogLoading(true);
+
+    const handleSuccess = () => {
+      toastShow({
+        type: 'success',
+        message: '儲存成功！',
+      });
+      setIsDirty(false);
+      setIsSaveBlogLoading(false);
+
+      getBlogs({
+        onStartWith: () => {
+          dispatch(getBlogsCall());
+        },
+        onSuccess: ({ response }) => {
+          const formattedBlogs = Object.keys(response).map((key) => response[key]);
+          dispatch(getBlogsDone({ blogs: formattedBlogs }));
+          handleClose();
+        },
+        onError: () => {
+          dispatch(getBlogsFail());
+        },
+      });
+    };
+
+    if (blogId) {
+      updateBlog({
+        blogId,
+        data,
+        onSuccess: handleSuccess,
+      });
+    } else {
+      createBlog({
+        data,
+        onSuccess: handleSuccess,
+      });
+    }
   };
 
   const handleOnEditorChange = (textValue) => {
@@ -206,7 +238,7 @@ const BlogFormDialog = ({
   return (
     <Dialog fullScreen open={isOpen} onClose={handleClose} TransitionComponent={Transition}>
       <HeaderBar
-        title={title}
+        title={dialogTitle}
         isDirty={isDirty}
         isSaveBlogLoading={isSaveBlogLoading}
         handleClose={handleClose}

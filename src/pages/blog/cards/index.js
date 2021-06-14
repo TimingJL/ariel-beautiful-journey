@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VerticalCard from 'src/components/cards/verticalCard';
 import HorizontalCard from 'src/components/cards/horizontalCard';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import BlogFormDialog from 'src/pages/blog/blogFormDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,53 +23,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Cards = ({ blogs }) => {
+const Cards = ({ tabText, blogs }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const Card = isSmUp ? VerticalCard : HorizontalCard;
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [selectedCardId, setSelectedCardId] = useState(null);
+  const selectedBlog = blogs.find((blog) => blog.id === selectedCardId) || {};
+  const blogTitle = `編輯${tabText}文章`;
+
+  const handleOpenDialog = (blogId) => {
+    setSelectedCardId(blogId);
+    setIsOpenDialog(true);
+  };
+  const handleCloseDialog = () => {
+    setIsOpenDialog(false);
+    setSelectedCardId(null);
+  };
 
   return (
-    <div className={classes.root}>
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((blog) => {
-        const {
-          id,
-          title,
-          coverLink,
-          tags,
-        } = blogs[0];
-        const key = `${blog}_${id}`;
-        return (
-          <Card
-            key={key}
-            title={title}
-            coverLink={coverLink}
-            tags={tags}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div className={classes.root}>
+        {blogs.map((blog) => {
+          const {
+            id,
+            title,
+            coverLink,
+            tags,
+          } = blog;
+
+          return (
+            <Card
+              key={id}
+              title={title}
+              coverLink={coverLink}
+              tags={tags}
+              handleEdit={() => handleOpenDialog(id)}
+            />
+          );
+        })}
+      </div>
+      {(isOpenDialog && selectedCardId) && (
+      <BlogFormDialog
+        dialogTitle={blogTitle}
+        tabText={tabText}
+        isOpen={isOpenDialog}
+        blog={selectedBlog}
+        handleClose={handleCloseDialog}
+      />
+      )}
+    </>
   );
-  // return (
-  //   <div className={classes.root}>
-  //     {blogs.map((blog) => {
-  //       const {
-  //         id,
-  //         title,
-  //         coverLink,
-  //         tags,
-  //       } = blog;
-  //       return (
-  //         <Card
-  //           key={id}
-  //           title={title}
-  //           coverLink={coverLink}
-  //           tags={tags}
-  //         />
-  //       );
-  //     })}
-  //   </div>
-  // );
 };
 
 export default Cards;

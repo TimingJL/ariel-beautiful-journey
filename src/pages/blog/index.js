@@ -54,7 +54,7 @@ const Blog = ({ title }) => {
       )}
       {isSuccess && isBlogsEmpty && <EmptyInfo title={title} />}
       {isSuccess && !isBlogsEmpty && (
-      <Cards blogs={filteredBlogs} />
+      <Cards tabText={title} blogs={filteredBlogs} />
       )}
     </BlogLayout>
   );

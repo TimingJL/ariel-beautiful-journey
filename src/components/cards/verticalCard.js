@@ -27,7 +27,9 @@ const useStyles = makeStyles({
   },
 });
 
-const VerticalCard = ({ title, coverLink, tags }) => {
+const VerticalCard = ({
+  title, coverLink, tags, handleEdit,
+}) => {
   const classes = useStyles();
 
   return (
@@ -60,7 +62,7 @@ const VerticalCard = ({ title, coverLink, tags }) => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <IconButton aria-label="edit">
+        <IconButton aria-label="edit" onClick={handleEdit}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="delete">
