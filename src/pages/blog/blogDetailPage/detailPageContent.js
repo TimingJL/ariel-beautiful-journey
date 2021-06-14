@@ -8,15 +8,15 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme) => ({
   root: {},
   commonPadding: {
-    padding: '12px 8px',
+    padding: '0px 8px',
     [theme.breakpoints.up('xs')]: {
-      padding: '12px 20px',
+      padding: '0px 20px',
     },
     [theme.breakpoints.up('sm')]: {
-      padding: '12px 28px',
+      padding: '0px 28px',
     },
     [theme.breakpoints.up('md')]: {
-      padding: '20px 40px',
+      padding: '0px 40px',
     },
   },
   imageWrapper: {
@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     fontWeight: 500,
     color: '#101010',
+    paddingTop: 20,
+    paddingBottom: 20,
     [theme.breakpoints.up('xs')]: {
       fontSize: 18,
     },
@@ -55,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tags: {
+    borderTop: '1px solid #eee',
+    borderBottom: '1px solid #eee',
+    paddingTop: 12,
+    paddingBottom: 12,
     marginTop: -4,
     '& > *': {
       marginTop: 4,
@@ -63,7 +69,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 4,
     },
   },
-  content: {},
+  content: {
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
 }));
 
 const DetailPageContent = ({ blog }) => {
@@ -77,10 +86,10 @@ const DetailPageContent = ({ blog }) => {
       <div className={classes.imageWrapper}>
         <img src={coverLink} className={classes.coverImage} alt="" />
       </div>
-      <div className={clsx(classes.title, classes.commonPadding)}>
+      <div className={clsx(classes.commonPadding, classes.title)}>
         {title}
       </div>
-      <div className={clsx(classes.tags, classes.commonPadding)}>
+      <div className={clsx(classes.commonPadding, classes.tags)}>
         {tags.map((tag) => (
           <Chip
             key={tag}
@@ -91,7 +100,7 @@ const DetailPageContent = ({ blog }) => {
           />
         ))}
       </div>
-      <div className={clsx(classes.content, classes.commonPadding)}>
+      <div className={clsx(classes.commonPadding, classes.content)}>
         <HtmlParser htmlString={content} />
       </div>
     </div>
