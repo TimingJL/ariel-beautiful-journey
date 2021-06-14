@@ -2,22 +2,24 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from './formLabel';
 
-const TitleInput = ({
+const TextInput = ({
+  autoFocus = false,
+  label,
+  value,
   isRequired,
-  blogTitleInputRef,
   handleOnChange,
 }) => (
   <div className="blog-title">
-    <FormLabel label="標題" isRequired={isRequired} />
+    <FormLabel label={label} isRequired={isRequired} />
     <TextField
-      ref={blogTitleInputRef}
-      autoFocus
-      label="標題"
+      autoFocus={autoFocus}
+      label={label}
       fullWidth
       variant="outlined"
+      value={value}
       onChange={handleOnChange}
     />
   </div>
 );
 
-export default TitleInput;
+export default TextInput;

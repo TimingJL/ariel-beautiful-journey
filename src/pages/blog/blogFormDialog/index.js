@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-useless-escape */
 import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -5,11 +7,13 @@ import Slide from '@material-ui/core/Slide';
 import { toastShow } from 'src/components/toastShow';
 
 import HeaderBar from './headerBar';
-import TitleInput from './titleInput';
+import TextInput from './textInput';
 import PublishSwitch from './publishSwitch';
 import TagsInput from './tagsInput';
 import ContentEditor from './contentEditor';
 import CoverImageUploader from './coverImageUploader';
+
+const youtubeLinkRegex = /(?:https?:\/\/|www\.|m\.|^)youtu(?:be\.com\/watch\?(?:.*?&(?:amp;)?)?v=|\.be\/)(?:&(?:amp;)?[\w\?=]*)?/;
 
 const useStyles = makeStyles(() => ({
   contentWrapper: {
@@ -31,14 +35,48 @@ const useStyles = makeStyles(() => ({
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
+const getErrorFieldList = ({
+  blogTitle, htmlString, coverLink, videoLink,
+}) => {
+  let errorFieldList = [];
+  const isValidVideoLink = youtubeLinkRegex.test(videoLink);
+
+  if (!blogTitle || blogTitle.trim().length === 0) {
+    errorFieldList = [
+      ...errorFieldList,
+      '標題',
+    ];
+  }
+  if (!htmlString || htmlString.trim().length === 0) {
+    errorFieldList = [
+      ...errorFieldList,
+      '內容',
+    ];
+  }
+  if (!coverLink || coverLink.trim().length === 0) {
+    errorFieldList = [
+      ...errorFieldList,
+      '封面圖片',
+    ];
+  }
+  if (videoLink.trim().length > 0 && !isValidVideoLink) {
+    errorFieldList = [
+      ...errorFieldList,
+      'Youtube 影片連結',
+    ];
+  }
+
+  return errorFieldList;
+};
+
 const BlogFormDialog = ({
   title, tabText, isOpen, handleClose,
 }) => {
   const classes = useStyles();
-  const blogTitleInputRef = useRef(null);
   const inputFileRef = useRef(null);
   const tagInputRef = useRef(null);
   const [blogTitle, setBlogTitle] = useState('');
+  const [videoLink, setVideoLink] = useState('');
   const [htmlString, setHtmlString] = useState('');
   const [coverLink, setCoverLink] = useState('');
   const [isUploadLoading, setIsUploadLoading] = useState(false);
@@ -46,8 +84,8 @@ const BlogFormDialog = ({
   const [isPublished, setIsPublish] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
 
-  const handleOnBlogTitleChange = () => {
-    const editingTitle = blogTitleInputRef.current.value;
+  const handleOnBlogTitleChange = (event) => {
+    const editingTitle = event.target.value;
     setBlogTitle(editingTitle);
     setIsDirty(true);
   };
@@ -78,11 +116,15 @@ const BlogFormDialog = ({
   };
 
   const handleClickSaveButton = () => {
-    if (isDirty) {
+    const errorFieldList = getErrorFieldList({
+      blogTitle, htmlString, coverLink, videoLink,
+    });
+    if (errorFieldList.length > 0) {
       toastShow({
         type: 'warn',
-        message: 'It is dirty',
+        message: `請檢查下列欄位：「${errorFieldList.join('、')}」`,
       });
+      return;
     }
     toastShow({
       type: 'success',
@@ -137,10 +179,11 @@ const BlogFormDialog = ({
       />
       <div className={classes.contentWrapper}>
         <div className={classes.formGroup}>
-          <TitleInput
+          <TextInput
+            autoFocus
+            label="標題"
             isRequired
-            blogTitleInputRef={blogTitleInputRef}
-            blogTitle={blogTitle}
+            value={blogTitle}
             handleOnChange={handleOnBlogTitleChange}
           />
           <CoverImageUploader
@@ -151,6 +194,11 @@ const BlogFormDialog = ({
             handleClickUploadButton={handleClickUploadButton}
             handleOnSelectImage={handleOnSelectImage}
             handleClearCoverImageLink={handleClearCoverImageLink}
+          />
+          <TextInput
+            label="Youtube 影片連結"
+            value={videoLink}
+            handleOnChange={(event) => setVideoLink(event.target.value)}
           />
           <TagsInput
             tagInputRef={tagInputRef}
