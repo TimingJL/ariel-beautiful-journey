@@ -51,12 +51,14 @@ export const createBlog = ({
 export const updateBlog = ({
   blogId, data, onStartWith, onSuccess, onError,
 }) => {
+  const currentAt = dayjs(new Date()).valueOf();
   firebaseRequest.update({
     path: '/blogs',
     data: {
       [blogId]: {
         ...blogTemplate,
         ...data,
+        [BLOG_UPDATED_AT]: currentAt,
       },
     },
     onStartWith,

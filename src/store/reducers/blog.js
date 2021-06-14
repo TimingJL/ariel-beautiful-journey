@@ -4,6 +4,9 @@ import {
   GET_BLOGS_CALL,
   GET_BLOGS_DONE,
   GET_BLOGS_FAIL,
+  GET_BLOG_CALL,
+  GET_BLOG_DONE,
+  GET_BLOG_FAIL,
 } from 'src/store/types/blog';
 import {
   STATE_IDLE,
@@ -15,9 +18,12 @@ import {
 const initialState = {
   blogs: [],
   blogsSideEffect: STATE_IDLE,
+  currentBlog: {},
+  currentBlogSideEffect: STATE_IDLE,
 };
 
 export default handleActions({
+  // get blogs
   [GET_BLOGS_CALL](state) {
     return update(state, {
       blogsSideEffect: { $set: STATE_LOADING },
@@ -32,6 +38,23 @@ export default handleActions({
   [GET_BLOGS_FAIL](state) {
     return update(state, {
       blogsSideEffect: { $set: STATE_FAIL },
+    });
+  },
+  // get blog
+  [GET_BLOG_CALL](state) {
+    return update(state, {
+      currentBlogSideEffect: { $set: STATE_LOADING },
+    });
+  },
+  [GET_BLOG_DONE](state, { payload: { blog } }) {
+    return update(state, {
+      currentBlog: { $set: blog },
+      currentBlogSideEffect: { $set: STATE_SUCCESS },
+    });
+  },
+  [GET_BLOG_FAIL](state) {
+    return update(state, {
+      currentBlogSideEffect: { $set: STATE_FAIL },
     });
   },
 }, initialState);

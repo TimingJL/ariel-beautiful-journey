@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import VerticalCard from 'src/components/cards/verticalCard';
 import HorizontalCard from 'src/components/cards/horizontalCard';
@@ -8,7 +9,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import BlogFormDialog from 'src/pages/blog/blogFormDialog';
 import ConfirmDialog from 'src/components/confirmDialog';
 import { removeBlog, getBlogs } from 'src/services/blogs';
-import { useDispatch } from 'react-redux';
 import { getBlogsDone, getBlogsCall, getBlogsFail } from 'src/store/actions/blog';
 
 const useStyles = makeStyles((theme) => ({

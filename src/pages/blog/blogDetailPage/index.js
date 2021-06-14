@@ -1,12 +1,32 @@
-import React from 'react';
-import Container from '@material-ui/core/Container';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { selectBlog } from 'src/store/selectors/blog';
+import { isEmpty } from 'lodash';
+import { getBlog } from 'src/services/blogs';
+import { getBlogCall, getBlogDone, getBlogFail } from 'src/store/actions/blog';
+import {
+  STATE_SUCCESS,
+  STATE_LOADING,
+} from 'src/const/common';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import EmptyInfo from './emptyInfo';
 
 const useStyles = makeStyles({
   container: {
     padding: '20px 8px',
     display: 'flex',
     justifyContent: 'center',
+  },
+  isLoading: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  circularProgress: {
+    marginTop: 60,
   },
   contentPaper: {
     background: 'white',
@@ -19,11 +39,45 @@ const useStyles = makeStyles({
 });
 
 const BlogDetailPage = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const { blogId } = useParams();
+  const { currentBlog, currentBlogSideEffect } = useSelector(selectBlog);
+  const isBlogEmpty = isEmpty(currentBlog);
+  const isLoading = currentBlogSideEffect === STATE_LOADING;
+  const isSuccess = currentBlogSideEffect === STATE_SUCCESS;
+  console.log('currentBlog: ', currentBlog);
+  console.log('isBlogEmpty: ', isBlogEmpty);
+
+  useEffect(() => {
+    getBlog({
+      blogId,
+      onStartWith: () => {
+        dispatch(getBlogCall());
+      },
+      onSuccess: ({ response }) => {
+        dispatch(getBlogDone({ blog: response }));
+      },
+      onError: () => {
+        dispatch(getBlogFail());
+      },
+    });
+  }, []);
+
   return (
     <Container className={classes.container}>
       <div className={classes.contentPaper}>
-        BlogDetailPage
+        {isLoading && (
+        <div className={classes.isLoading}>
+          <CircularProgress className={classes.circularProgress} />
+        </div>
+        )}
+        {(isSuccess && !isBlogEmpty) && (
+        <div>BlogDetailPage</div>
+        )}
+        {(isSuccess && isBlogEmpty) && (
+        <EmptyInfo />
+        )}
       </div>
     </Container>
   );
