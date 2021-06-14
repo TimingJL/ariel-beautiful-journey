@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HorizontalCard = ({
-  title, coverLink, tags, handleEdit,
+  title, coverLink, tags, handleEdit, handleDelete,
 }) => {
   const classes = useStyles();
 
@@ -71,7 +71,7 @@ const HorizontalCard = ({
           <IconButton aria-label="edit" size="small" onClick={handleEdit}>
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="delete" size="small">
+          <IconButton aria-label="delete" size="small" onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </div>

@@ -4,6 +4,7 @@ import HorizontalCard from 'src/components/cards/horizontalCard';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import BlogFormDialog from 'src/pages/blog/blogFormDialog';
+import ConfirmDialog from 'src/components/confirmDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ const Cards = ({ tabText, blogs }) => {
   const Card = isSmUp ? VerticalCard : HorizontalCard;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null);
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
   const selectedBlog = blogs.find((blog) => blog.id === selectedCardId) || {};
   const blogTitle = `編輯${tabText}文章`;
 
@@ -41,6 +43,15 @@ const Cards = ({ tabText, blogs }) => {
   const handleCloseDialog = () => {
     setIsOpenDialog(false);
     setSelectedCardId(null);
+  };
+
+  const handleClickDeleteButton = (blogId) => {
+    setSelectedCardId(blogId);
+    setIsOpenConfirm(true);
+  };
+
+  const handleSubmitDeleteBlog = () => {
+    setIsOpenConfirm(false);
   };
 
   return (
@@ -61,6 +72,7 @@ const Cards = ({ tabText, blogs }) => {
               coverLink={coverLink}
               tags={tags}
               handleEdit={() => handleOpenDialog(id)}
+              handleDelete={() => handleClickDeleteButton(id)}
             />
           );
         })}
@@ -72,6 +84,18 @@ const Cards = ({ tabText, blogs }) => {
         isOpen={isOpenDialog}
         blog={selectedBlog}
         handleClose={handleCloseDialog}
+      />
+      )}
+      {(isOpenConfirm && selectedCardId) && (
+      <ConfirmDialog
+        title="刪除確認"
+        description={`確認是否刪除「${selectedBlog.title}」?`}
+        isOpen={isOpenConfirm}
+        handleClose={() => {
+          setIsOpenConfirm(false);
+          setSelectedCardId(null);
+        }}
+        handleConfirm={handleSubmitDeleteBlog}
       />
       )}
     </>
