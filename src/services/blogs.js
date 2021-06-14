@@ -3,17 +3,23 @@ import short from 'short-uuid';
 import { blogTemplate, BLOG_CREATED_AT, BLOG_UPDATED_AT } from 'src/dataTemplate/blog';
 import dayjs from 'dayjs';
 
-export const getBlogs = ({ onSuccess, onError }) => {
+export const getBlogs = ({
+  onStartWith, onSuccess, onError,
+}) => {
   firebaseRequest.getOnce({
     path: '/blogs',
+    onStartWith,
     onSuccess,
     onError,
   });
 };
 
-export const getBlog = ({ blogId, onSuccess, onError }) => {
+export const getBlog = ({
+  blogId, onStartWith, onSuccess, onError,
+}) => {
   firebaseRequest.getOnce({
     path: `//blogs/${blogId}`,
+    onStartWith,
     onSuccess,
     onError,
   });
@@ -21,7 +27,7 @@ export const getBlog = ({ blogId, onSuccess, onError }) => {
 
 export const createBlog = ({
   data,
-  onSuccess, onError,
+  onStartWith, onSuccess, onError,
 }) => {
   const newBlogId = short.generate();
   const currentAt = dayjs(new Date()).valueOf();
@@ -36,13 +42,14 @@ export const createBlog = ({
         [BLOG_UPDATED_AT]: currentAt,
       },
     },
+    onStartWith,
     onSuccess,
     onError,
   });
 };
 
 export const updateBlog = ({
-  blogId, data, onSuccess, onError,
+  blogId, data, onStartWith, onSuccess, onError,
 }) => {
   firebaseRequest.update({
     path: '/blogs',
@@ -52,16 +59,18 @@ export const updateBlog = ({
         ...data,
       },
     },
+    onStartWith,
     onSuccess,
     onError,
   });
 };
 
 export const removeBlog = ({
-  blogId, onSuccess, onError,
+  blogId, onStartWith, onSuccess, onError,
 }) => {
   firebaseRequest.remove({
     path: `/blogs/${blogId}`,
+    onStartWith,
     onSuccess,
     onError,
   });

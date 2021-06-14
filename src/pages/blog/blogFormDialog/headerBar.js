@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import ConfirmDialog from 'src/components/confirmDialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -17,11 +18,16 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  startIcon: {
+    marginRight: 8,
+    color: 'white',
+  },
 }));
 
 const HeaderBar = ({
   title,
   isDirty,
+  isSaveBlogLoading,
   handleClose, handleClickSaveButton,
 }) => {
   const classes = useStyles();
@@ -45,8 +51,15 @@ const HeaderBar = ({
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Button autoFocus color="inherit" onClick={handleClickSaveButton}>
-            儲存
+          <Button
+            autoFocus
+            color="inherit"
+            onClick={handleClickSaveButton}
+            disabled={isSaveBlogLoading || !isDirty}
+          >
+            {isSaveBlogLoading ? (
+              <CircularProgress size={24} className={classes.startIcon} />
+            ) : '儲存'}
           </Button>
         </Toolbar>
       </AppBar>

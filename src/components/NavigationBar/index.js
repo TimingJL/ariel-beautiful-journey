@@ -5,7 +5,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { getCurrentUser } from 'src/store/selectors/user';
+import { selectUser } from 'src/store/selectors/user';
 import LoginDialog from 'src/components/loginDialog';
 import { MakeupOutlineIcon } from 'src/components/icons/makeupOutline';
 
@@ -48,7 +48,7 @@ const NavigationBar = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const classes = useStyles();
-  const currentUser = useSelector(getCurrentUser);
+  const currentUser = useSelector(selectUser);
 
   const handleClickSignOutButton = () => {
     auth.signOut();

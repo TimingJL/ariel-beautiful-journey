@@ -1,1 +1,1 @@
-export const getCurrentUser = ({ user }) => user.user;
+export const selectUser = ({ user }) => user.user;

@@ -5,6 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { toastShow } from 'src/components/toastShow';
+import {
+  BLOG_TITLE,
+  BLOG_CONTENT,
+  BLOG_COVER_LINK,
+  BLOG_VIDEO_LINK,
+  BLOG_TAGS,
+  BLOG_IS_PUBLISHED,
+} from 'src/dataTemplate/blog';
+import { createBlog, getBlogs } from 'src/services/blogs';
 
 import HeaderBar from './headerBar';
 import TextInput from './textInput';
@@ -83,6 +92,7 @@ const BlogFormDialog = ({
   const [tagList, setTagList] = useState([tabText]);
   const [isPublished, setIsPublish] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
+  const [isSaveBlogLoading, setIsSaveBlogLoading] = useState(false);
 
   const handleOnBlogTitleChange = (event) => {
     const editingTitle = event.target.value;
@@ -126,11 +136,35 @@ const BlogFormDialog = ({
       });
       return;
     }
-    toastShow({
-      type: 'success',
-      message: '儲存成功！',
+    if (!isDirty) {
+      return;
+    }
+    const data = {
+      [BLOG_TITLE]: blogTitle,
+      [BLOG_CONTENT]: htmlString,
+      [BLOG_VIDEO_LINK]: videoLink,
+      [BLOG_COVER_LINK]: coverLink,
+      [BLOG_TAGS]: tagList,
+      [BLOG_IS_PUBLISHED]: isPublished,
+    };
+    setIsSaveBlogLoading(true);
+    createBlog({
+      data,
+      onSuccess: () => {
+        toastShow({
+          type: 'success',
+          message: '儲存成功！',
+        });
+        setIsDirty(false);
+        setIsSaveBlogLoading(false);
+
+        getBlogs({
+          onSuccess: () => {
+            handleClose();
+          },
+        });
+      },
     });
-    setIsDirty(false);
   };
 
   const handleOnEditorChange = (textValue) => {
@@ -174,6 +208,7 @@ const BlogFormDialog = ({
       <HeaderBar
         title={title}
         isDirty={isDirty}
+        isSaveBlogLoading={isSaveBlogLoading}
         handleClose={handleClose}
         handleClickSaveButton={handleClickSaveButton}
       />

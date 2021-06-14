@@ -2,7 +2,11 @@ import { database } from 'src/firebase';
 import { toastShow } from 'src/components/toastShow';
 
 export const firebaseRequest = ({
-  getOnce: ({ path, onSuccess, onError }) => {
+  getOnce: ({
+    path, onSuccess, onError,
+    onStartWith,
+  }) => {
+    if (onStartWith) onStartWith();
     database.ref(path).once('value', (response) => {
       if (onSuccess) onSuccess({ response: response.val() });
     }, (error) => {
@@ -13,7 +17,10 @@ export const firebaseRequest = ({
       if (onError) onError({ error });
     });
   },
-  getOn: ({ path, onSuccess, onError }) => {
+  getOn: ({
+    path, onStartWith, onSuccess, onError,
+  }) => {
+    if (onStartWith) onStartWith();
     database.ref(path).on('value', (response) => {
       if (onSuccess) onSuccess({ response });
     }, (error) => {
@@ -25,8 +32,9 @@ export const firebaseRequest = ({
     });
   },
   set: ({
-    path, data, onSuccess, onError,
+    path, data, onStartWith, onSuccess, onError,
   }) => {
+    if (onStartWith) onStartWith();
     database.ref(path)
       .set(data)
       .then((response) => {
@@ -40,8 +48,9 @@ export const firebaseRequest = ({
       });
   },
   update: ({
-    path, data, onSuccess, onError,
+    path, data, onStartWith, onSuccess, onError,
   }) => {
+    if (onStartWith) onStartWith();
     database.ref(path)
       .update(data)
       .then((response) => {
@@ -55,7 +64,10 @@ export const firebaseRequest = ({
       });
   },
   push: {},
-  remove: ({ path, onSuccess, onError }) => {
+  remove: ({
+    path, onStartWith, onSuccess, onError,
+  }) => {
+    if (onStartWith) onStartWith();
     database.ref(path).remove()
       .then((response) => {
         if (onSuccess) onSuccess({ response });
