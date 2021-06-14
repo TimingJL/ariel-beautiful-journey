@@ -2,8 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-
-const createMarkup = (htmlString) => ({ __html: htmlString });
+import HtmlParser from 'src/components/htmlParser';
 
 const useStyles = makeStyles({
   root: {
@@ -68,7 +67,7 @@ const DetailPageContent = ({ blog }) => {
         ))}
       </div>
       <div className={classes.content}>
-        <div dangerouslySetInnerHTML={createMarkup(content)} />
+        <HtmlParser htmlString={content} />
       </div>
     </div>
   );
