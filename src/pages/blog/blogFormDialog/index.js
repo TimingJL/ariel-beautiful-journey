@@ -284,7 +284,10 @@ const BlogFormDialog = ({
           />
           <PublishSwitch
             isPublished={isPublished}
-            handleTogglePublished={() => setIsPublish((prev) => !prev)}
+            handleTogglePublished={() => {
+              setIsDirty(true);
+              setIsPublish((prev) => !prev);
+            }}
           />
         </div>
       </div>
