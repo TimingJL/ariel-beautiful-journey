@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import VerticalCard from 'src/components/cards/verticalCard';
 import HorizontalCard from 'src/components/cards/horizontalCard';
@@ -10,10 +10,11 @@ import BlogFormDialog from 'src/pages/blog/blogFormDialog';
 import ConfirmDialog from 'src/components/confirmDialog';
 import { removeBlog, getBlogs } from 'src/services/blogs';
 import { getBlogsDone, getBlogsCall, getBlogsFail } from 'src/store/actions/blog';
+import { selectUser } from 'src/store/selectors/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: '0px 20px 60px',
+    padding: '30px 20px 60px',
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
     gridGap: 20,
@@ -33,6 +34,7 @@ const Cards = ({ tabText, blogs }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const currentUser = useSelector(selectUser);
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const Card = isSmUp ? VerticalCard : HorizontalCard;
@@ -96,6 +98,7 @@ const Cards = ({ tabText, blogs }) => {
           return (
             <Card
               key={id}
+              isEditable={!!currentUser}
               title={title}
               coverLink={coverLink}
               tags={tags}

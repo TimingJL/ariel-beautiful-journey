@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
 const VerticalCard = ({
   title, coverLink, tags, handleEdit, handleDelete, handleClickCard,
+  isEditable = false,
 }) => {
   const classes = useStyles();
 
@@ -64,6 +65,7 @@ const VerticalCard = ({
           </div>
         </CardContent>
       </CardActionArea>
+      {isEditable && (
       <CardActions className={classes.cardActions}>
         <IconButton aria-label="edit" onClick={handleEdit}>
           <EditIcon />
@@ -72,6 +74,7 @@ const VerticalCard = ({
           <DeleteIcon />
         </IconButton>
       </CardActions>
+      )}
     </Card>
   );
 };

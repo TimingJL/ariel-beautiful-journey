@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HorizontalCard = ({
   title, coverLink, tags, handleEdit, handleDelete, handleClickCard,
+  isEditable = false,
 }) => {
   const classes = useStyles();
 
@@ -74,6 +75,7 @@ const HorizontalCard = ({
             ))}
           </div>
         </CardContent>
+        {isEditable && (
         <div className={classes.controls}>
           <IconButton aria-label="edit" size="small" onClick={handleEdit}>
             <EditIcon />
@@ -82,6 +84,7 @@ const HorizontalCard = ({
             <DeleteIcon />
           </IconButton>
         </div>
+        )}
       </div>
     </Card>
   );

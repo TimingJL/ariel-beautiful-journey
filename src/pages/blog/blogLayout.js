@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import { selectUser } from 'src/store/selectors/user';
+
 import BlogFormDialog from './blogFormDialog';
 
 const useStyles = makeStyles({
@@ -22,8 +25,10 @@ const useStyles = makeStyles({
 
 const BlogLayout = ({ children, title }) => {
   const classes = useStyles();
+  const currentUser = useSelector(selectUser);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const blogTitle = `新增${title}文章`;
+  const isEditable = !!currentUser;
 
   const handleOpenDialog = () => {
     setIsOpenDialog(true);
@@ -35,6 +40,7 @@ const BlogLayout = ({ children, title }) => {
   return (
     <>
       <Container className={classes.container}>
+        {isEditable && (
         <div className={classes.createButtonWrapper}>
           <Button
             className={classes.createButton}
@@ -47,6 +53,7 @@ const BlogLayout = ({ children, title }) => {
             {blogTitle}
           </Button>
         </div>
+        )}
         {children}
       </Container>
       {isOpenDialog && (
