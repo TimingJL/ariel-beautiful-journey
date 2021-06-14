@@ -13,6 +13,8 @@ import {
   STATE_LOADING,
 } from 'src/const/common';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import DetailPageContent from './detailPageContent';
 import EmptyInfo from './emptyInfo';
 
 const useStyles = makeStyles({
@@ -46,8 +48,6 @@ const BlogDetailPage = () => {
   const isBlogEmpty = isEmpty(currentBlog);
   const isLoading = currentBlogSideEffect === STATE_LOADING;
   const isSuccess = currentBlogSideEffect === STATE_SUCCESS;
-  console.log('currentBlog: ', currentBlog);
-  console.log('isBlogEmpty: ', isBlogEmpty);
 
   useEffect(() => {
     getBlog({
@@ -73,7 +73,7 @@ const BlogDetailPage = () => {
         </div>
         )}
         {(isSuccess && !isBlogEmpty) && (
-        <div>BlogDetailPage</div>
+        <DetailPageContent blog={currentBlog} />
         )}
         {(isSuccess && isBlogEmpty) && (
         <EmptyInfo />
